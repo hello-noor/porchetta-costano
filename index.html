@@ -1160,7 +1160,7 @@ function toast(msg){
   function reset(){
     snake = [{x:7,y:9},{x:6,y:9},{x:5,y:9}];
     dir = {x:1,y:0}; next = dir;
-    score = 0; speed = 190;
+    score = 0; speed = 300;
     place(); paintBar(); draw();
   }
   function paintBar(){
@@ -1237,8 +1237,7 @@ function toast(msg){
       if(score > best){ best = score; el("#gBest").textContent = best; }
       paintBar();
       if(score >= GOAL) return stop(true);
-      if(speed > 95) speed -= 5;
-      clearInterval(timer); timer = setInterval(step, speed);
+      if(speed > 110){ speed -= 10; clearInterval(timer); timer = setInterval(step, speed); }
       place();
     } else snake.pop();
     draw();
