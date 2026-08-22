@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sagra della Porchetta di Costano · 51ª edizione · 20-30 agosto 2026</title>
+<meta name="theme-color" id="metaTheme" content="#16100C">
 <meta name="description" content="Menù, programma musicale e dolci della Sagra della Porchetta di Costano, 51ª edizione. Segna le quantità, calcola il conto e porta il riepilogo alla cassa.">
 <meta name="theme-color" content="#16100C">
 <style>
@@ -19,6 +20,11 @@
   --snout:#F0AEA6; --snout-ink:#B9635A;
   --cotenna:#E8B33A;
   --sip:#6FA8A0; --sip-deep:#2F5E58;
+  --snout-text:#F0AEA6; --sip-text:#6FA8A0; --brace-text:#F07A1E;
+  --hair:rgba(244,232,213,.18); --hair-2:rgba(244,232,213,.13);
+  --zebra:rgba(244,232,213,.075); --veil:rgba(22,16,12,.86);
+  --board:#231913; --grid:rgba(244,232,213,.05);
+  --shadow:rgba(0,0,0,.5);
   --paper:#FBF8F1; --paper-ink:#1E1611; --paper-line:#D7CDBC;
   --display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
   --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -38,27 +44,53 @@ body{
 
 /* ---------- Testata ---------- */
 header.top{padding:clamp(28px,6vw,48px) 0 clamp(14px,3vw,20px);text-align:center}
-.eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brace);font-weight:700;margin:0 0 14px}
-.mark{width:56px;height:42px;display:block;margin:0 auto 14px;color:var(--snout)}
+.eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brace-text);font-weight:700;margin:0 0 14px}
+.mark{width:56px;height:42px;display:block;margin:0 auto 14px;color:var(--snout-text)}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(36px,10vw,64px);line-height:.98;margin:0;letter-spacing:-.015em}
-h1 em{font-style:italic;color:var(--snout)}
+h1 em{font-style:italic;color:var(--snout-text)}
 .place{margin:16px 0 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim)}
 .links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px 0 0}
+.themebtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ink-3);border-radius:999px;padding:8px 14px;background:none;color:var(--cream-dim);font-family:var(--ui);font-size:12.5px;font-weight:600;cursor:pointer;transition:color .15s,border-color .15s}
+.themebtn:hover{color:var(--snout-text);border-color:var(--snout)}
+.themebtn svg{width:15px;height:15px;flex:none}
 .links a{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ink-3);border-radius:999px;padding:8px 14px;color:var(--cream-dim);text-decoration:none;font-size:12.5px;font-weight:600;transition:color .15s,border-color .15s}
-.links a:hover{color:var(--snout);border-color:var(--snout)}
+.links a:hover{color:var(--snout-text);border-color:var(--snout)}
 .links svg{width:15px;height:15px}
 
+html[data-theme="light"]{
+  --ink:#F3EADA; --ink-2:#FBF6EC; --ink-3:#E7DBC6;
+  --cream:#23180F; --cream-dim:#6C5B47; --cream-mute:#8B7A67;
+  --brace:#E07A22; --brace-deep:#A8430E;
+  --snout:#F0AEA6; --snout-ink:#A85449;
+  --cotenna:#8A6410;
+  --sip:#6FA8A0; --sip-deep:#2F5E58;
+  --snout-text:#A85449; --sip-text:#2F5E58; --brace-text:#B24C10;
+  --hair:rgba(35,24,15,.16); --hair-2:rgba(35,24,15,.11);
+  --zebra:rgba(35,24,15,.045); --veil:rgba(243,234,218,.9);
+  --board:#EFE4D1; --grid:rgba(35,24,15,.06);
+  --shadow:rgba(90,60,30,.18);
+}
+html[data-theme="light"] body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%238A5A50' stroke-width='1.1' opacity='0.16'%3E%3Cellipse cx='18' cy='18' rx='10' ry='7.5'/%3E%3Cellipse cx='54' cy='54' rx='10' ry='7.5'/%3E%3C/g%3E%3Cg fill='%238A5A50' opacity='0.16'%3E%3Cellipse cx='14.6' cy='18' rx='1.7' ry='2.4'/%3E%3Cellipse cx='21.4' cy='18' rx='1.7' ry='2.4'/%3E%3Cellipse cx='50.6' cy='54' rx='1.7' ry='2.4'/%3E%3Cellipse cx='57.4' cy='54' rx='1.7' ry='2.4'/%3E%3C/g%3E%3C/svg%3E")}
+html[data-theme="light"] .gcard h3{color:var(--cream)}
+html[data-theme="light"] .band{color:#2B1305}
+html[data-theme="light"] .tabbtn.on,html[data-theme="light"] .chip.on{color:#2B1305}
+
 /* ---------- Schede ---------- */
-.deck{position:sticky;top:0;z-index:30;background:linear-gradient(var(--ink) 84%, rgba(22,16,12,0));padding:10px 0 0}
-.tabs{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.tabs::-webkit-scrollbar{display:none}
-.tabset{display:flex;gap:4px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:999px;padding:4px;flex:1;min-width:0}
+.deck{position:sticky;top:0;z-index:30;background:linear-gradient(var(--ink) 84%, transparent);padding:10px 0 0}
+.tabs{display:flex;align-items:center;gap:7px}
+.tabset{display:flex;gap:4px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:999px;padding:4px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabset::-webkit-scrollbar{display:none}
 .tabbtn{flex:0 0 auto;min-width:0;border:0;background:none;color:var(--cream-dim);border-radius:999px;padding:9px 6px;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s,color .18s}
 .tabbtn:hover{color:var(--cream)}
 .tabbtn.on{background:var(--brace);color:#241007}
-.pigwrap{flex:none;width:52px;text-align:center;line-height:0}
-.pig{width:52px;height:auto;display:block}
-.pig .vessel{fill:rgba(244,232,213,.13)}
+.playbtn{flex:none;display:flex;align-items:center;gap:6px;background:var(--ink-2);border:1px solid var(--ink-3);color:var(--cream-dim);border-radius:999px;padding:9px 12px;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.playbtn svg{width:17px;height:17px;flex:none}
+.playbtn:hover{color:var(--cream)}
+.playbtn.on{background:var(--snout);border-color:var(--snout);color:#2A1210}
+@media (max-width:560px){ .playbtn span{display:none} .playbtn{padding:9px 10px} }
+.pigwrap{flex:none;width:46px;text-align:center;line-height:0}
+.pig{width:46px;height:auto;display:block}
+.pig .vessel{fill:var(--hair-2)}
 .pig .fillrect{fill:var(--snout)}
 .pig .detail{fill:var(--ink)}
 .pig .tail{fill:none;stroke:var(--snout);stroke-width:6;stroke-linecap:round;opacity:.45}
@@ -73,7 +105,7 @@ nav.chips.hide{display:none}
 .chip.sip .b{background:var(--sip)}
 .chip.sip.on .b{background:#0E2321;color:var(--sip)}
 .chip .b{background:var(--snout);color:#2A1210;font-family:var(--num);font-size:10px;min-width:17px;height:17px;border-radius:999px;display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:700}
-.chip.on .b{background:var(--ink);color:var(--snout)}
+.chip.on .b{background:var(--ink);color:var(--snout-text)}
 .chip.has .b{display:inline-flex}
 
 .panel{display:none}
@@ -99,14 +131,14 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .list{border:1px solid var(--ink-3);border-top:0;border-radius:0 0 var(--radius) var(--radius);overflow:hidden}
 .dish{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:15px 16px;border-top:1px solid var(--ink-2);position:relative;transition:background .18s}
 .dish:first-child{border-top:0}
-.dish:nth-child(even){background:rgba(244,232,213,.075)}
+.dish:nth-child(even){background:var(--zebra)}
 .dish.picked{background:linear-gradient(90deg,rgba(240,174,166,.20),rgba(240,174,166,.05))}
 .dish.picked::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--snout)}
-.dish.picked .name{color:var(--snout)}
+.dish.picked .name{color:var(--snout-text)}
 .dish.sip.picked{background:linear-gradient(90deg,rgba(111,168,160,.22),rgba(111,168,160,.05))}
 .dish.sip.picked::before{background:var(--sip)}
-.dish.sip.picked .name{color:var(--sip)}
-.dish.sip.picked .qty{color:var(--sip)}
+.dish.sip.picked .name{color:var(--sip-text)}
+.dish.sip.picked .qty{color:var(--sip-text)}
 .dish.sip .step .plus{background:var(--sip);color:#0E2321}
 .dish.sip .step .plus:hover{background:#84BDB5}
 .dish.star .name::after{content:attr(data-star);font-family:var(--ui);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#2A1210;background:var(--snout);border-radius:3px;padding:2px 6px;margin-left:9px;vertical-align:middle;font-style:normal;font-weight:700;white-space:nowrap}
@@ -123,13 +155,13 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .step .plus{background:var(--snout);color:#2A1210;font-weight:700}
 .step .plus:hover{background:#FFC6BF}
 .step .qty{font-family:var(--num);font-size:15px;min-width:26px;text-align:center;font-variant-numeric:tabular-nums}
-.dish.picked .qty{color:var(--snout);font-weight:700}
+.dish.picked .qty{color:var(--snout-text);font-weight:700}
 
 /* ---------- Coperti ---------- */
 .covers-bar{display:flex;align-items:center;gap:14px;border:1px solid var(--ink-3);border-radius:var(--radius);padding:14px;margin:14px 0 0;background:var(--ink-2)}
-.covers-bar .cb-ico{width:30px;height:23px;flex:none;color:var(--snout)}
+.covers-bar .cb-ico{width:30px;height:23px;flex:none;color:var(--snout-text)}
 .covers-bar .cb-l{line-height:1.25;min-width:0}
-.covers-bar .cb-l strong{font-size:14.5px;font-weight:700;display:block;color:var(--snout)}
+.covers-bar .cb-l strong{font-size:14.5px;font-weight:700;display:block;color:var(--snout-text)}
 .covers-bar .cb-l small{color:var(--cream-mute);font-size:11.5px}
 .covers-bar .amt{font-family:var(--num);font-size:14px;color:var(--cotenna);margin-left:auto;font-variant-numeric:tabular-nums}
 .covers-bar .step{margin-left:12px}
@@ -140,7 +172,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .stage{margin:24px 0 0;border:1px solid var(--ink-3);border-radius:var(--radius);overflow:hidden}
 .night{display:grid;grid-template-columns:60px 1fr;gap:0 16px;padding:15px 16px;border-top:1px solid var(--ink-2);position:relative;align-items:center}
 .night:first-child{border-top:0}
-.night:nth-child(even){background:rgba(244,232,213,.075)}
+.night:nth-child(even){background:var(--zebra)}
 .night .day{text-align:center;line-height:1}
 .night .dn{font-family:var(--display);font-size:30px;display:block}
 .night .dw{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-mute);font-weight:700;display:block;margin-top:4px}
@@ -149,7 +181,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .night.past{opacity:.42}
 .night.now{background:linear-gradient(90deg,rgba(240,174,166,.2),rgba(240,174,166,.04))}
 .night.now::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--snout)}
-.night.now .dn,.night.now .who{color:var(--snout)}
+.night.now .dn,.night.now .who{color:var(--snout-text)}
 .night .tonight{display:inline-block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#2A1210;background:var(--snout);border-radius:3px;padding:2px 6px;margin-left:9px;vertical-align:middle}
 .night.gala .who::after{content:"special guest";font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#241007;background:var(--cotenna);border-radius:3px;padding:2px 6px;margin-left:9px;vertical-align:middle;font-family:var(--ui)}
 
@@ -171,7 +203,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .tab-grand::before{content:"in tutto "}
 .tk{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--snout-ink);font-weight:800;display:block}
 .tsum[data-b="ghiottone"] .tk{color:var(--brace-deep)}
-.tsum[data-b="bar"] .tk{color:var(--sip)}
+.tsum[data-b="bar"] .tk{color:var(--sip-text)}
 .tsum[data-b="porchetta"] .tk{color:var(--cotenna)}
 .tvrow{display:flex;align-items:baseline;gap:8px}
 .tv{font-family:var(--num);font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
@@ -181,7 +213,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .tab .go{margin-left:auto;border:0;cursor:pointer;background:var(--ink);color:var(--cream);border-radius:9px;padding:13px 17px;font-size:13.5px;font-weight:700;font-family:var(--ui);display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .tab .go:hover{background:var(--ink-3)}
 .tab .go svg{width:17px;height:17px}
-.fly{position:fixed;z-index:45;width:26px;height:20px;color:var(--snout);pointer-events:none;transition:transform .55s cubic-bezier(.4,0,.6,1),opacity .55s ease}
+.fly{position:fixed;z-index:45;width:26px;height:20px;color:var(--snout-text);pointer-events:none;transition:transform .55s cubic-bezier(.4,0,.6,1),opacity .55s ease}
 
 /* ---------- Scontrino ---------- */
 .sheet{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center}
@@ -261,23 +293,23 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 /* ---------- gioco ---------- */
 .porkbar{margin:0 0 12px}
 .pb-lab{font-family:var(--ui);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--cream-dim);margin-bottom:6px;text-align:center}
-.pb-lab span{color:var(--brace);font-family:var(--num)}
+.pb-lab span{color:var(--brace-text);font-family:var(--num)}
 .pb{width:100%;height:auto;display:block;max-width:420px;margin:0 auto}
 #pbFill,#pbFillRect{transition:width .3s ease}
 #pbHead{transition:transform .3s ease;transform-origin:48px 50px}
 #pbHead.happy{transform:scale(1.12) rotate(-6deg)}
-.board-wrap{position:relative;border-radius:12px;overflow:hidden;background:var(--ink-2);border:1px solid rgba(244,232,213,.14);aspect-ratio:1;width:min(100%,46vh,460px);margin:0 auto}
+.board-wrap{position:relative;border-radius:12px;overflow:hidden;background:var(--ink-2);border:1px solid var(--hair-2);aspect-ratio:1;width:min(100%,46vh,460px);margin:0 auto}
 #gCanvas{width:100%;height:100%;display:block;touch-action:none}
-.gover{position:absolute;inset:0;display:grid;place-items:center;background:rgba(22,16,12,.86);backdrop-filter:blur(3px);padding:20px;text-align:center}
+.gover{position:absolute;inset:0;display:grid;place-items:center;background:var(--veil);backdrop-filter:blur(3px);padding:20px;text-align:center}
 .gover.hide{display:none}
-.gcard .gm{width:52px;height:40px;color:var(--snout);margin-bottom:8px}
+.gcard .gm{width:52px;height:40px;color:var(--snout-text);margin-bottom:8px}
 .gcard h3{font-family:var(--display);font-size:22px;margin:0 0 6px;color:var(--cream)}
 .gcard p{font-size:13.5px;color:var(--cream-dim);margin:0 0 14px;max-width:34ch;line-height:1.5}
 .gbtn{background:var(--snout);color:#2A1210;border:0;border-radius:999px;padding:12px 26px;font-family:var(--ui);font-size:14px;font-weight:800;cursor:pointer}
 .gbtn:hover{background:#F5C2BB}
 .pad{display:grid;justify-content:center;gap:7px;margin:12px 0 0}
 .pad-mid{display:flex;gap:46px;justify-content:center}
-.dbtn{width:54px;height:54px;border-radius:14px;border:1px solid rgba(244,232,213,.18);background:var(--ink-3);color:var(--cream-dim);font-size:16px;cursor:pointer;justify-self:center;-webkit-tap-highlight-color:transparent}
+.dbtn{width:54px;height:54px;border-radius:14px;border:1px solid var(--hair);background:var(--ink-3);color:var(--cream-dim);font-size:16px;cursor:pointer;justify-self:center;-webkit-tap-highlight-color:transparent}
 .dbtn:active{background:var(--snout);color:#2A1210;transform:scale(.94)}
 .how{text-align:center;font-size:12px;color:var(--cream-mute);margin:10px 0 0}
 @media (hover:hover) and (pointer:fine){ .pad{display:none} }
@@ -322,6 +354,10 @@ body.playing .tab{display:none}
   <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
   <symbol id="fb" viewBox="0 0 24 24"><path d="M14.5 8.5V6.8c0-.8.3-1.3 1.4-1.3H17V3h-2.3c-2.5 0-3.6 1.4-3.6 3.6v1.9H9.4V11h1.7v10h3.4V11h2.3l.4-2.5z" fill="currentColor"/></symbol>
   <symbol id="ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></symbol>
+  <symbol id="auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.6a8.4 8.4 0 0 1 0 16.8z" fill="currentColor"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.6v2.6M12 18.8v2.6M21.4 12h-2.6M5.2 12H2.6M18.6 5.4l-1.8 1.8M7.2 16.8l-1.8 1.8M18.6 18.6l-1.8-1.8M7.2 7.2 5.4 5.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="pad" viewBox="0 0 24 24"><rect x="2.4" y="7.2" width="19.2" height="10.6" rx="5.3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 10.6v3.4M5.3 12.3h3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16.2" cy="11.4" r="1.25" fill="currentColor"/><circle cx="18.6" cy="13.8" r="1.25" fill="currentColor"/></symbol>
   <symbol id="link" viewBox="0 0 24 24"><path d="M10 13.5a3.6 3.6 0 0 0 5.1.3l2.6-2.6a3.6 3.6 0 0 0-5.1-5.1l-1.3 1.3M14 10.5a3.6 3.6 0 0 0-5.1-.3l-2.6 2.6a3.6 3.6 0 0 0 5.1 5.1l1.3-1.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
 </svg>
@@ -337,6 +373,7 @@ body.playing .tab{display:none}
       <a href="https://www.facebook.com/SagraDellaPorchettaCostano" target="_blank" rel="noopener"><svg><use href="#fb"/></svg> Facebook</a>
       <a href="https://www.instagram.com/sagraporchettacostano/" target="_blank" rel="noopener"><svg><use href="#ig"/></svg> Instagram</a>
       <a href="https://maps.app.goo.gl/wG8bBEDz5N1qxP9C6" target="_blank" rel="noopener"><svg><use href="#pin"/></svg> Come arrivare</a>
+      <button class="themebtn" id="themeBtn" aria-label="Cambia tema"><svg><use href="#auto"/></svg><span id="themeLab">Auto</span></button>
     </div>
   </header>
 
@@ -344,12 +381,14 @@ body.playing .tab{display:none}
     <div class="tabs">
       <div class="tabset" role="tablist">
         <button class="tabbtn on" role="tab" data-tab="menu">Menù</button>
-        <button class="tabbtn" role="tab" data-tab="ghiottone">Dolci</button>
         <button class="tabbtn" role="tab" data-tab="bar">Bar</button>
         <button class="tabbtn" role="tab" data-tab="porchetta">Porchetta</button>
+        <button class="tabbtn" role="tab" data-tab="ghiottone">Dolci</button>
         <button class="tabbtn" role="tab" data-tab="musica">Musica</button>
-        <button class="tabbtn" role="tab" data-tab="gioco">Gioco</button>
       </div>
+      <button class="playbtn" role="tab" data-tab="gioco" title="Il maiale e le mele" aria-label="Gioco">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#pad"/></svg><span>Gioco</span>
+      </button>
       <div class="pigwrap" aria-hidden="true">
         <svg class="pig" viewBox="0 0 210 152">
           <defs>
@@ -428,7 +467,7 @@ body.playing .tab{display:none}
     <p class="lead"><b>La porchetta da portare a casa.</b> Panini e taglio al chilo dal banco della porchetta, con la sua cassa.</p>
     <div id="list-porchetta"></div>
     <div class="notes">
-      <p>Per il taglio al chilo ogni unità vale un chilo: se ne vuoi mezzo, chiedi al banco e paghi la metà.</p>
+      <p>La porchetta al taglio si conta a etti: dieci etti fanno un chilo, cioè 24,00 €. Segna quanti etti vuoi.</p>
     </div>
   </div>
 
@@ -476,7 +515,7 @@ body.playing .tab{display:none}
 
         <!-- sagoma vuota -->
         <path d="M74 18 H272 c20 0 32 12 32 27 s-12 27-32 27 H74 z"
-              fill="rgba(244,232,213,.05)" stroke="var(--cream-dim)" stroke-width="1.6" stroke-dasharray="5 5"/>
+              fill="var(--zebra)" stroke="var(--cream-dim)" stroke-width="1.6" stroke-dasharray="5 5"/>
 
         <!-- arrosto che avanza -->
         <g clip-path="url(#porkClip)">
@@ -645,11 +684,11 @@ const SEZIONI = [
   ]},
 
   { id:"asporto", label:"Porchetta", group:"porchetta",
-    note:"Il banco della porchetta è a parte: si paga lì. Per il taglio al chilo segna quanti chili vuoi.",
+    note:"Il banco della porchetta è a parte: si paga lì. Il taglio si conta a etti.",
     items:[
     { n:"Panino con porchetta", d:"", p:4.50 },
     { n:"Panino vuoto", d:"", p:0.75 },
-    { n:"Porchetta al kg", d:"Prezzo al chilo", p:24.00, star:"al taglio" }
+    { n:"Porchetta all'etto", d:"2,40 € l'etto · 24,00 € al chilo", p:2.40, star:"al taglio" }
   ]},
 
   { id:"dolci", label:"Dolci e caffè", group:"ghiottone", items:[
@@ -788,6 +827,45 @@ SEZIONI.forEach(c=>{
 })();
 
 /* ---------- stato ---------- */
+/* ---------- tema chiaro / scuro ---------- */
+const THEME_KEY = "sagra-costano-tema";
+const MODI = ["auto", "light", "dark"];
+const MODI_LAB = { auto:"Auto", light:"Chiaro", dark:"Scuro" };
+const MODI_ICO = { auto:"#auto", light:"#sun", dark:"#moon" };
+let modo = "auto";
+const mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: light)") : null;
+
+function seraOra(){
+  const h = new Date().getHours();
+  return h >= 19 || h < 7;
+}
+function temaEffettivo(){
+  if(modo !== "auto") return modo;
+  if(seraOra()) return "dark";
+  return (mq && mq.matches) ? "light" : "dark";
+}
+function applicaTema(){
+  const t = temaEffettivo();
+  document.documentElement.setAttribute("data-theme", t);
+  const meta = el("#metaTheme");
+  if(meta) meta.setAttribute("content", t === "light" ? "#F3EADA" : "#16100C");
+  const btn = el("#themeBtn");
+  if(btn){
+    btn.querySelector("use").setAttribute("href", MODI_ICO[modo]);
+    el("#themeLab").textContent = MODI_LAB[modo];
+    btn.title = modo === "auto"
+      ? "Automatico: chiaro di giorno, scuro di sera"
+      : (modo === "light" ? "Sempre chiaro" : "Sempre scuro");
+  }
+  if(window.repaintGame) window.repaintGame();
+}
+(function initTema(){
+  try{ const v = localStorage.getItem(THEME_KEY); if(MODI.includes(v)) modo = v; }catch(e){}
+  applicaTema();
+  if(mq && mq.addEventListener) mq.addEventListener("change", ()=>{ if(modo === "auto") applicaTema(); });
+  setInterval(()=>{ if(modo === "auto") applicaTema(); }, 300000);
+})();
+
 /* ---------- memoria locale e link condivisibile ---------- */
 const STORE = "sagra-costano-51";
 let restoring = false;
@@ -877,6 +955,13 @@ function setPersone(v){
   personeTouched = true;
   if(el("#sheet").classList.contains("open")) drawReceipt();
 }
+el("#themeBtn").onclick = ()=>{
+  modo = MODI[(MODI.indexOf(modo) + 1) % MODI.length];
+  try{ localStorage.setItem(THEME_KEY, modo); }catch(e){}
+  applicaTema();
+  toast(modo === "auto" ? "Tema automatico: chiaro di giorno, scuro di sera"
+                        : (modo === "light" ? "Tema chiaro" : "Tema scuro"));
+};
 el("#cbPlus").onclick = ()=>setCoperti(coperti + 1);
 el("#cbMinus").onclick = ()=>setCoperti(coperti - 1);
 
@@ -1133,7 +1218,7 @@ function fly(btn, targetSel){
 function setTab(name){
   if(activeTab === "gioco" && name !== "gioco" && window.pauseGame) window.pauseGame();
   activeTab = name;
-  document.querySelectorAll(".tabbtn").forEach(b=>b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("on", b.dataset.tab === name));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on", p.id === "p-"+name));
   chipsEl.innerHTML = "";
   CHIPS[name].forEach(c=>chipsEl.appendChild(c));
@@ -1142,7 +1227,7 @@ function setTab(name){
   refresh();
   onScroll();
 }
-document.querySelectorAll(".tabbtn").forEach(b=>b.onclick = ()=>setTab(b.dataset.tab));
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick = ()=>setTab(b.dataset.tab));
 
 /* ---------- il maiale che si riempie + sezione attiva ---------- */
 const pigFill = el("#pigFill"), PIG_H = 152;
@@ -1270,9 +1355,10 @@ function toast(msg){
   }
 
   function draw(){
-    ctx.fillStyle = "#231913";
+    const css = getComputedStyle(document.documentElement);
+    ctx.fillStyle = css.getPropertyValue("--board").trim() || "#231913";
     ctx.fillRect(0,0,cv.width,cv.height);
-    ctx.strokeStyle = "rgba(244,232,213,.05)";
+    ctx.strokeStyle = css.getPropertyValue("--grid").trim() || "rgba(244,232,213,.05)";
     ctx.lineWidth = 1;
     for(let i=1;i<N;i++){
       ctx.beginPath(); ctx.moveTo(i*CELL,0); ctx.lineTo(i*CELL,cv.height); ctx.stroke();
@@ -1395,6 +1481,7 @@ function toast(msg){
     tx = e.touches[0].clientX; ty = e.touches[0].clientY;
   }, { passive:false });
 
+  window.repaintGame = ()=>{ if(snake) draw(); };
   window.pauseGame = ()=>{
     if(playing){
       clearInterval(timer); playing = false; paused = true;
