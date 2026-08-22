@@ -221,6 +221,15 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .covers .st button:hover{background:#EDE5D7}
 .covers .st button:disabled{opacity:.3}
 .covers .st span{font-family:var(--num);min-width:24px;text-align:center;font-size:15px}
+.split{display:flex;align-items:center;gap:12px;margin:10px 0 0;padding:12px;border-radius:9px;background:#EDE5D7}
+.split .lab{font-size:13.5px;line-height:1.25;font-weight:700}
+.split .lab small{display:block;color:#7A6A58;font-size:11.5px;font-weight:400}
+.split .st{margin-left:auto;display:flex;align-items:center;gap:2px;border:1px solid var(--paper-line);border-radius:999px;padding:2px;background:var(--paper)}
+.split .st button{width:28px;height:28px;border:0;background:none;font-size:17px;cursor:pointer;border-radius:50%;color:var(--paper-ink)}
+.split .st button:disabled{opacity:.3}
+.split .st span{font-family:var(--num);min-width:22px;text-align:center;font-size:15px}
+.split .each{font-family:var(--num);font-size:19px;font-weight:700;white-space:nowrap}
+.split .odd{display:block;font-size:10.5px;color:#7A6A58;font-weight:400;font-family:var(--ui);text-align:right}
 .r-total{display:flex;align-items:baseline;margin:16px 0 4px}
 .r-total .k{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
 .r-total .v{margin-left:auto;font-family:var(--num);font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
@@ -627,6 +636,8 @@ const qty = {};
 let coperti = 0;
 let activeTab = "menu";
 let activeDesk = "menu";
+let persone = 0;
+let personeTouched = false;
 SEZIONI.forEach((c,ci)=>c.items.forEach((it,ii)=>{ it.key = ci+"-"+ii; qty[it.key] = 0; }));
 
 const eur = v => v.toFixed(2).replace(".",",") + " €";
@@ -719,7 +730,7 @@ function applyOrder(str){
     const [k, v] = bit.split(".");
     const q = parseInt(v, 10);
     if(!isFinite(q) || q < 1) return;
-    if(k === "c"){ coperti = Math.min(60, q); touched = true; return; }
+    if(k === "c"){ coperti = Math.min(60, q); if(!personeTouched) persone = coperti; touched = true; return; }
     if(!(k in qty)) return;
     qty[k] = Math.min(99, q);
     paintRow(k);
@@ -743,6 +754,13 @@ function loadSaved(){
   let raw = "";
   try{ raw = localStorage.getItem(STORE) || ""; }catch(e){}
   return raw;
+}
+function splitOf(tot, n){
+  if(n < 1) return null;
+  const cent = Math.round(tot * 100);
+  const base = Math.floor(cent / n);
+  const resto = cent - base * n;
+  return { each: base / 100, up: (base + 1) / 100, resto };
 }
 function shareURL(){
   const base = location.href.split("#")[0].split("?")[0];
@@ -772,8 +790,14 @@ function paintCoperti(){
 }
 function setCoperti(v){
   coperti = Math.max(0, Math.min(60, v));
+  if(!personeTouched) persone = coperti;
   save();
   paintCoperti(); refresh();
+  if(el("#sheet").classList.contains("open")) drawReceipt();
+}
+function setPersone(v){
+  persone = Math.max(0, Math.min(60, v));
+  personeTouched = true;
   if(el("#sheet").classList.contains("open")) drawReceipt();
 }
 el("#cbPlus").onclick = ()=>setCoperti(coperti + 1);
@@ -867,8 +891,25 @@ function drawReceipt(){
     }
   }
 
+  const sp = splitOf(dt.tot, persone);
   html +=
     '<div class="r-total"><span class="k">Totale ' + (d === "menu" ? "menù" : "dolci") + '</span><span class="v">'+eur(dt.tot)+'</span></div>' +
+    (dt.tot > 0 ?
+      '<div class="split">' +
+        '<div class="lab">Alla romana<small>Dividi tra gli amici</small></div>' +
+        '<div class="st">' +
+          '<button id="pMinus" aria-label="Una persona in meno"'+(persone <= 1 ? " disabled" : "")+'>−</button>' +
+          '<span aria-live="polite">'+(persone || 0)+'</span>' +
+          '<button id="pPlus" aria-label="Una persona in più">+</button>' +
+        '</div>' +
+        '<div>' +
+          (sp ? '<span class="each">'+eur(sp.each)+'</span>' +
+                (sp.resto ? '<small class="odd">'+sp.resto+' pagano '+eur(sp.up)+'</small>'
+                          : '<small class="odd">a testa</small>')
+              : '<span class="each">—</span><small class="odd">quante persone?</small>') +
+        '</div>' +
+      '</div>'
+    : '') +
     '<p class="r-note">' + (d === "menu"
         ? t.menu.n + ' portate' + (coperti ? ' e ' + coperti + ' coperti' : '') + '. Mostra questo conto alla cassa del menù.'
         : t.dolci.n + ' dolci. Mostra questo conto all\'Angolo del Ghiottone.') + '</p>' +
@@ -877,7 +918,9 @@ function drawReceipt(){
       '<a id="aWa" target="_blank" rel="noopener"><svg><use href="#wa"/></svg> WhatsApp</a>' +
       '<button id="aShare"><svg><use href="#share"/></svg> Condividi</button>' +
     '</div>' +
-    '<div class="foot"><span>Totale complessivo</span><span class="gt">'+eur(t.tot)+'</span>' +
+    '<div class="foot"><span>Totale complessivo' +
+      (splitOf(t.tot, persone) ? ' · ' + eur(splitOf(t.tot, persone).each) + ' a testa' : '') +
+      '</span><span class="gt">'+eur(t.tot)+'</span>' +
       '<button class="lnk" id="aBoth">Copia tutti e due</button></div>' +
     '<button class="tavolo" id="aLink"><svg><use href="#link"/></svg> Manda l\'ordine al tavolo</button>' +
     '<button class="wipe" id="aClear">Ricomincia da capo</button>';
@@ -890,6 +933,9 @@ function drawReceipt(){
   const cm = el("#cMinus"), cp = el("#cPlus");
   if(cm) cm.onclick = ()=>setCoperti(coperti - 1);
   if(cp) cp.onclick = ()=>setCoperti(coperti + 1);
+  const pm = el("#pMinus"), pp = el("#pPlus");
+  if(pm) pm.onclick = ()=>setPersone(persone - 1);
+  if(pp) pp.onclick = ()=>setPersone(persone + 1);
 
   el("#aCopy").onclick = ()=>copyText(orderText(d), "Conto " + (d === "menu" ? "menù" : "dolci") + " copiato");
   el("#aBoth").onclick = ()=>copyText(bothText(), "Copiati tutti e due i conti");
@@ -924,6 +970,9 @@ function block(d){
   });
   if(d === "menu" && coperti > 0) s += "\nCoperti: " + coperti + " × " + eur(COPERTO) + " · " + eur(t.menu.cop) + "\n";
   s += "\nTOTALE " + (d === "menu" ? "MENÙ" : "DOLCI") + ": " + eur(t[d].tot);
+  const sp = splitOf(t[d].tot, persone);
+  if(sp) s += "\nAlla romana in " + persone + ": " + eur(sp.each) + " a testa" +
+              (sp.resto ? " (" + sp.resto + " pagano " + eur(sp.up) + ")" : "");
   return s;
 }
 function head(){ return "🐷 " + EVENTO.toUpperCase() + "\n" + EDIZIONE + "\nOrdine del " + stamp() + "\n"; }
@@ -932,6 +981,7 @@ function bothText(){
   const t = totals();
   return head() + "\n" + block("menu") + "\n\n- - - - - - - - - - - - - - - -\n\n" + block("dolci") +
          "\n\n- - - - - - - - - - - - - - - -\nTOTALE COMPLESSIVO: " + eur(t.tot) +
+         (splitOf(t.tot, persone) ? "\nAlla romana in " + persone + ": " + eur(splitOf(t.tot, persone).each) + " a testa" : "") +
          "\n\n" + SITO + "\nDove siamo: " + MAPS;
 }
 function copyText(txt, msg){
