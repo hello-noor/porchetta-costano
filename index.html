@@ -202,6 +202,9 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .foot{margin-top:18px;padding-top:14px;border-top:1px dashed var(--paper-line);display:flex;align-items:center;gap:10px;font-size:12px;color:#7A6A58}
 .foot .gt{font-family:var(--num);font-weight:700;color:var(--paper-ink);font-size:14px}
 .foot .lnk{margin-left:auto;background:none;border:0;color:var(--brace-deep);font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline;font-family:var(--ui);padding:4px}
+.tavolo{width:100%;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:9px;border:1.5px dashed var(--paper-line);background:none;color:var(--paper-ink);font-family:var(--ui);font-size:13px;font-weight:700;cursor:pointer}
+.tavolo:hover{border-color:var(--brace-deep);color:var(--brace-deep)}
+.tavolo svg{width:16px;height:16px}
 .r-cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--brace-deep);margin:15px 0 6px}
 .r-body > .r-cat:first-child{margin-top:0}
 .r-row{display:flex;gap:10px;align-items:baseline;font-size:14px;padding:4px 0}
@@ -235,6 +238,32 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .toast{position:fixed;left:50%;bottom:112px;transform:translate(-50%,14px);z-index:70;background:var(--snout);color:#2A1210;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .no-hit{padding:26px 16px;text-align:center;color:var(--cream-mute);font-size:14px}
+/* ---------- gioco ---------- */
+.porkbar{margin:0 0 12px}
+.pb-lab{font-family:var(--ui);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--cream-dim);margin-bottom:6px;text-align:center}
+.pb-lab span{color:var(--brace);font-family:var(--num)}
+.pb{width:100%;height:auto;display:block;max-width:420px;margin:0 auto}
+#pbFill,#pbFillRect{transition:width .3s ease}
+#pbHead{transition:transform .3s ease;transform-origin:48px 50px}
+#pbHead.happy{transform:scale(1.12) rotate(-6deg)}
+.board-wrap{position:relative;border-radius:12px;overflow:hidden;background:var(--ink-2);border:1px solid rgba(244,232,213,.14);aspect-ratio:1;width:min(100%,46vh,460px);margin:0 auto}
+#gCanvas{width:100%;height:100%;display:block;touch-action:none}
+.gover{position:absolute;inset:0;display:grid;place-items:center;background:rgba(22,16,12,.86);backdrop-filter:blur(3px);padding:20px;text-align:center}
+.gover.hide{display:none}
+.gcard .gm{width:52px;height:40px;color:var(--snout);margin-bottom:8px}
+.gcard h3{font-family:var(--display);font-size:22px;margin:0 0 6px;color:var(--cream)}
+.gcard p{font-size:13.5px;color:var(--cream-dim);margin:0 0 14px;max-width:34ch;line-height:1.5}
+.gbtn{background:var(--snout);color:#2A1210;border:0;border-radius:999px;padding:12px 26px;font-family:var(--ui);font-size:14px;font-weight:800;cursor:pointer}
+.gbtn:hover{background:#F5C2BB}
+.pad{display:grid;justify-content:center;gap:7px;margin:12px 0 0}
+.pad-mid{display:flex;gap:46px;justify-content:center}
+.dbtn{width:54px;height:54px;border-radius:14px;border:1px solid rgba(244,232,213,.18);background:var(--ink-3);color:var(--cream-dim);font-size:16px;cursor:pointer;justify-self:center;-webkit-tap-highlight-color:transparent}
+.dbtn:active{background:var(--snout);color:#2A1210;transform:scale(.94)}
+.how{text-align:center;font-size:12px;color:var(--cream-mute);margin:10px 0 0}
+@media (hover:hover) and (pointer:fine){ .pad{display:none} }
+body.playing{padding-bottom:20px}
+body.playing .tab{display:none}
+
 .credit{text-align:center;padding:16px;font-size:11px;color:#AFA07A;font-style:italic;margin-top:20px}
 .credit a{color:inherit;text-decoration:underline}
 
@@ -273,6 +302,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
   <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
   <symbol id="fb" viewBox="0 0 24 24"><path d="M14.5 8.5V6.8c0-.8.3-1.3 1.4-1.3H17V3h-2.3c-2.5 0-3.6 1.4-3.6 3.6v1.9H9.4V11h1.7v10h3.4V11h2.3l.4-2.5z" fill="currentColor"/></symbol>
   <symbol id="ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></symbol>
+  <symbol id="link" viewBox="0 0 24 24"><path d="M10 13.5a3.6 3.6 0 0 0 5.1.3l2.6-2.6a3.6 3.6 0 0 0-5.1-5.1l-1.3 1.3M14 10.5a3.6 3.6 0 0 0-5.1-.3l-2.6 2.6a3.6 3.6 0 0 0 5.1 5.1l1.3-1.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.4 7-11.5A7 7 0 0 0 5 9.5C5 14.6 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
 </svg>
 
@@ -296,6 +326,7 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
         <button class="tabbtn on" role="tab" data-tab="menu">Menù</button>
         <button class="tabbtn" role="tab" data-tab="ghiottone">Dolci</button>
         <button class="tabbtn" role="tab" data-tab="musica">Musica</button>
+        <button class="tabbtn" role="tab" data-tab="gioco">Gioco</button>
       </div>
       <div class="pigwrap" aria-hidden="true">
         <svg class="pig" viewBox="0 0 210 152">
@@ -381,6 +412,85 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
     <div id="ghiottoneList"></div>
     <div class="notes">
       <p>I prezzi sono quelli esposti al banco: in caso di differenza fa fede il listino della cassa.</p>
+    </div>
+  </div>
+
+  <!-- ---------- GIOCO ---------- -->
+  <div class="panel" id="p-gioco" role="tabpanel">
+    <p class="lead"><b>Il maiale e le mele.</b> Ogni mela allunga la fila e arrostisce un pezzo di porchetta. Riempila tutta e hai vinto.</p>
+
+    <div class="porkbar">
+      <div class="pb-lab"><span id="gScore">0</span> mele su <span id="gGoal">20</span> · <span id="gPct">0%</span> di porchetta</div>
+      <svg class="pb" viewBox="0 0 330 88" aria-hidden="true">
+        <defs>
+          <linearGradient id="roast" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F3A85A"/>
+            <stop offset=".42" stop-color="#DE7A2B"/>
+            <stop offset="1" stop-color="#A24A12"/>
+          </linearGradient>
+          <clipPath id="porkClip">
+            <path d="M74 18 H272 c20 0 32 12 32 27 s-12 27-32 27 H74 z"/>
+          </clipPath>
+          <clipPath id="fillClip"><rect id="pbFillRect" x="74" y="0" width="0" height="88"/></clipPath>
+        </defs>
+
+        <!-- sagoma vuota -->
+        <path d="M74 18 H272 c20 0 32 12 32 27 s-12 27-32 27 H74 z"
+              fill="rgba(244,232,213,.05)" stroke="var(--cream-dim)" stroke-width="1.6" stroke-dasharray="5 5"/>
+
+        <!-- arrosto che avanza -->
+        <g clip-path="url(#porkClip)">
+          <rect id="pbFill" x="74" y="0" width="0" height="88" fill="url(#roast)"/>
+          <g clip-path="url(#fillClip)">
+            <path d="M84 24 H286" stroke="#FFD9A0" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+            <g stroke="#7A3F0E" stroke-width="4" opacity=".7">
+              <path d="M116 12v66M158 12v66M200 12v66M242 12v66"/>
+            </g>
+          </g>
+        </g>
+
+        <!-- testa del maiale -->
+        <g id="pbHead">
+          <path d="M60 26 L54 6 L80 22 Z" fill="#D98D84"/>
+          <path d="M30 24 L24 8 L48 20 Z" fill="#D98D84"/>
+          <ellipse cx="48" cy="50" rx="30" ry="26" fill="#F0AEA6"/>
+          <ellipse cx="18" cy="58" rx="12" ry="10" fill="#D98D84"/>
+          <circle cx="14" cy="58" r="2.6" fill="#8E4B45"/>
+          <circle cx="23" cy="58" r="2.6" fill="#8E4B45"/>
+          <circle cx="44" cy="42" r="3.4" fill="#2A1210"/>
+          <circle cx="64" cy="44" r="3.4" fill="#2A1210"/>
+        </g>
+
+        <!-- spiedo -->
+        <path d="M304 45 H322" stroke="var(--cream-dim)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="322" cy="45" r="4" fill="var(--cream-dim)"/>
+      </svg>
+    </div>
+
+    <div class="board-wrap">
+      <canvas id="gCanvas" width="420" height="420" aria-label="Campo di gioco"></canvas>
+      <div class="gover" id="gOver">
+        <div class="gcard">
+          <svg class="gm"><use href="#snout"/></svg>
+          <h3 id="gTitle">Il maiale e le mele</h3>
+          <p id="gMsg">Mangia le mele, non sbattere contro te stesso.</p>
+          <button class="gbtn" id="gStart">Comincia</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <button class="dbtn" data-dir="up" aria-label="Su">▲</button>
+      <div class="pad-mid">
+        <button class="dbtn" data-dir="left" aria-label="Sinistra">◀</button>
+        <button class="dbtn" data-dir="right" aria-label="Destra">▶</button>
+      </div>
+      <button class="dbtn" data-dir="down" aria-label="Giù">▼</button>
+    </div>
+
+    <p class="how">Sul telefono: scorri il dito sul campo, oppure usa le frecce qui sopra. Al computer: frecce o WASD.</p>
+    <div class="notes">
+      <p>Record di stasera: <b id="gBest">0</b> mele.</p>
     </div>
   </div>
 </div>
@@ -523,7 +633,7 @@ const eur = v => v.toFixed(2).replace(".",",") + " €";
 const el = s => document.querySelector(s);
 const slow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const chipsEl = el("#chips");
-const CHIPS = { menu:[], musica:[], ghiottone:[] };
+const CHIPS = { menu:[], musica:[], ghiottone:[], gioco:[] };
 
 /* ---------- liste ---------- */
 SEZIONI.forEach(c=>{
@@ -590,12 +700,63 @@ SEZIONI.forEach(c=>{
 })();
 
 /* ---------- stato ---------- */
+/* ---------- memoria locale e link condivisibile ---------- */
+const STORE = "sagra-costano-51";
+let restoring = false;
+
+function encodeOrder(){
+  const parts = [];
+  Object.keys(qty).forEach(k=>{ if(qty[k] > 0) parts.push(k + "." + qty[k]); });
+  let s = parts.join("_");
+  if(coperti > 0) s += (s ? "_" : "") + "c." + coperti;
+  return s;
+}
+function applyOrder(str){
+  if(!str) return false;
+  let touched = false;
+  restoring = true;
+  str.split("_").forEach(bit=>{
+    const [k, v] = bit.split(".");
+    const q = parseInt(v, 10);
+    if(!isFinite(q) || q < 1) return;
+    if(k === "c"){ coperti = Math.min(60, q); touched = true; return; }
+    if(!(k in qty)) return;
+    qty[k] = Math.min(99, q);
+    paintRow(k);
+    touched = true;
+  });
+  restoring = false;
+  return touched;
+}
+function paintRow(key){
+  const row = document.querySelector('[data-key="'+key+'"]');
+  if(!row) return;
+  row.querySelector(".qty").textContent = qty[key];
+  row.querySelector(".minus").disabled = qty[key] === 0;
+  row.classList.toggle("picked", qty[key] > 0);
+}
+function save(){
+  if(restoring) return;
+  try{ localStorage.setItem(STORE, encodeOrder()); }catch(e){}
+}
+function loadSaved(){
+  let raw = "";
+  try{ raw = localStorage.getItem(STORE) || ""; }catch(e){}
+  return raw;
+}
+function shareURL(){
+  const base = location.href.split("#")[0].split("?")[0];
+  const code = encodeOrder();
+  return code ? base + "#o=" + code : base;
+}
+
 function change(key, delta){
   qty[key] = Math.max(0, Math.min(99, qty[key] + delta));
   const row = document.querySelector('[data-key="'+key+'"]');
   row.querySelector(".qty").textContent = qty[key];
   row.querySelector(".minus").disabled = qty[key] === 0;
   row.classList.toggle("picked", qty[key] > 0);
+  save();
   refresh();
   if(el("#sheet").classList.contains("open")) drawReceipt();
 }
@@ -611,6 +772,7 @@ function paintCoperti(){
 }
 function setCoperti(v){
   coperti = Math.max(0, Math.min(60, v));
+  save();
   paintCoperti(); refresh();
   if(el("#sheet").classList.contains("open")) drawReceipt();
 }
@@ -717,6 +879,7 @@ function drawReceipt(){
     '</div>' +
     '<div class="foot"><span>Totale complessivo</span><span class="gt">'+eur(t.tot)+'</span>' +
       '<button class="lnk" id="aBoth">Copia tutti e due</button></div>' +
+    '<button class="tavolo" id="aLink"><svg><use href="#link"/></svg> Manda l\'ordine al tavolo</button>' +
     '<button class="wipe" id="aClear">Ricomincia da capo</button>';
 
   body.innerHTML = html;
@@ -730,6 +893,11 @@ function drawReceipt(){
 
   el("#aCopy").onclick = ()=>copyText(orderText(d), "Conto " + (d === "menu" ? "menù" : "dolci") + " copiato");
   el("#aBoth").onclick = ()=>copyText(bothText(), "Copiati tutti e due i conti");
+  el("#aLink").onclick = ()=>{
+    const url = shareURL();
+    if(navigator.share){ navigator.share({ title:EVENTO, text:"Il nostro ordine alla sagra", url }).catch(()=>{}); }
+    else copyText(url, "Link copiato: mandalo a chi è al tavolo");
+  };
   el("#aClear").onclick = clearAll;
   el("#aWa").href = "https://wa.me/?text=" + encodeURIComponent(orderText(d));
   const sh = el("#aShare");
@@ -790,6 +958,7 @@ function clearAll(){
     row.classList.remove("picked");
   });
   setCoperti(0);
+  save();
   drawReceipt();
   toast("Ordine azzerato");
 }
@@ -815,6 +984,7 @@ function fly(btn, targetSel){
 
 /* ---------- schede ---------- */
 function setTab(name){
+  if(activeTab === "gioco" && name !== "gioco" && window.pauseGame) window.pauseGame();
   activeTab = name;
   document.querySelectorAll(".tabbtn").forEach(b=>b.classList.toggle("on", b.dataset.tab === name));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on", p.id === "p-"+name));
@@ -907,6 +1077,190 @@ function toast(msg){
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=>t.classList.remove("show"), 2200);
 }
+
+/* ---------- ripristino ---------- */
+(function restore(){
+  const hash = location.hash.match(/[#&]o=([^&]+)/);
+  if(hash && applyOrder(decodeURIComponent(hash[1]))){
+    save();
+    history.replaceState(null, "", location.pathname + location.search);
+    setTimeout(()=>toast("Ordine del tavolo caricato"), 500);
+    return;
+  }
+  if(applyOrder(loadSaved())) setTimeout(()=>toast("Ripreso l'ordine di prima"), 500);
+})();
+
+/* ---------- il maiale e le mele ---------- */
+(function(){
+  const cv = el("#gCanvas"), ctx = cv.getContext("2d");
+  const N = 15, CELL = cv.width / N, GOAL = 20;
+  const over = el("#gOver"), fill = el("#pbFill"), fillRect = el("#pbFillRect"), head = el("#pbHead");
+  const PB_W = 230;
+
+  let snake, dir, next, apple, timer, playing = false, paused = false, score = 0, best = 0, speed;
+
+  el("#gGoal").textContent = GOAL;
+
+  function place(){
+    let p;
+    do { p = { x: Math.floor(Math.random()*N), y: Math.floor(Math.random()*N) }; }
+    while(snake.some(s=>s.x === p.x && s.y === p.y));
+    apple = p;
+  }
+  function reset(){
+    snake = [{x:7,y:9},{x:6,y:9},{x:5,y:9}];
+    dir = {x:1,y:0}; next = dir;
+    score = 0; speed = 190;
+    place(); paintBar(); draw();
+  }
+  function paintBar(){
+    const p = Math.min(1, score / GOAL);
+    fill.setAttribute("width", PB_W * p);
+    fillRect.setAttribute("width", PB_W * p);
+    el("#gScore").textContent = score;
+    el("#gPct").textContent = Math.round(p * 100) + "%";
+    head.classList.toggle("happy", p >= 1);
+  }
+
+  function draw(){
+    ctx.fillStyle = "#231913";
+    ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.strokeStyle = "rgba(244,232,213,.05)";
+    ctx.lineWidth = 1;
+    for(let i=1;i<N;i++){
+      ctx.beginPath(); ctx.moveTo(i*CELL,0); ctx.lineTo(i*CELL,cv.height); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,i*CELL); ctx.lineTo(cv.width,i*CELL); ctx.stroke();
+    }
+
+    // mela
+    const ax = apple.x*CELL + CELL/2, ay = apple.y*CELL + CELL/2;
+    ctx.fillStyle = "#C4331F";
+    ctx.beginPath(); ctx.arc(ax, ay+1, CELL*0.32, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = "#6B8F3A"; ctx.lineWidth = 2.4; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(ax, ay - CELL*0.26); ctx.lineTo(ax + CELL*0.16, ay - CELL*0.44); ctx.stroke();
+
+    // corpo
+    for(let i = snake.length - 1; i >= 1; i--){
+      const s = snake[i], t = 1 - (i / snake.length) * 0.45;
+      ctx.fillStyle = "rgba(240,174,166," + t.toFixed(2) + ")";
+      rr(s.x*CELL+2, s.y*CELL+2, CELL-4, CELL-4, 6); ctx.fill();
+    }
+
+    // testa
+    const h = snake[0], hx = h.x*CELL, hy = h.y*CELL;
+    ctx.fillStyle = "#F0AEA6";
+    rr(hx+1, hy+1, CELL-2, CELL-2, 8); ctx.fill();
+    // orecchie
+    ctx.fillStyle = "#D98D84";
+    ctx.beginPath();
+    ctx.moveTo(hx+CELL*0.22, hy+CELL*0.16); ctx.lineTo(hx+CELL*0.10, hy-CELL*0.10); ctx.lineTo(hx+CELL*0.44, hy+CELL*0.10);
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(hx+CELL*0.78, hy+CELL*0.16); ctx.lineTo(hx+CELL*0.90, hy-CELL*0.10); ctx.lineTo(hx+CELL*0.56, hy+CELL*0.10);
+    ctx.closePath(); ctx.fill();
+    // grifo
+    ctx.fillStyle = "#C4756C";
+    const gx = hx+CELL/2, gy = hy+CELL*0.62;
+    ctx.beginPath(); ctx.ellipse(gx, gy, CELL*0.26, CELL*0.20, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = "#8E4B45";
+    ctx.beginPath(); ctx.arc(gx-CELL*0.09, gy, CELL*0.05, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(gx+CELL*0.09, gy, CELL*0.05, 0, Math.PI*2); ctx.fill();
+    // occhi
+    ctx.fillStyle = "#2A1210";
+    ctx.beginPath(); ctx.arc(hx+CELL*0.32, hy+CELL*0.34, CELL*0.06, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(hx+CELL*0.68, hy+CELL*0.34, CELL*0.06, 0, Math.PI*2); ctx.fill();
+  }
+  function rr(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+  }
+
+  function step(){
+    dir = next;
+    const h = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+    if(h.x < 0 || h.y < 0 || h.x >= N || h.y >= N) return stop(false);
+    if(snake.some((s,i)=> i < snake.length - 1 && s.x === h.x && s.y === h.y)) return stop(false);
+    snake.unshift(h);
+    if(h.x === apple.x && h.y === apple.y){
+      score++;
+      if(score > best){ best = score; el("#gBest").textContent = best; }
+      paintBar();
+      if(score >= GOAL) return stop(true);
+      if(speed > 95) speed -= 5;
+      clearInterval(timer); timer = setInterval(step, speed);
+      place();
+    } else snake.pop();
+    draw();
+  }
+
+  function start(){
+    reset(); playing = true; paused = false;
+    document.body.classList.add("playing");
+    over.classList.add("hide");
+    clearInterval(timer); timer = setInterval(step, speed);
+  }
+  function stop(won){
+    clearInterval(timer); playing = false; paused = false;
+    document.body.classList.remove("playing");
+    el("#gTitle").textContent = won ? "Porchetta completa!" : "Ahia";
+    el("#gMsg").textContent = won
+      ? "Hai riempito la porchetta con " + GOAL + " mele. Ora tocca a quella vera."
+      : "Ti sei fermato a " + score + (score === 1 ? " mela." : " mele.") + " Riprova.";
+    el("#gStart").textContent = won ? "Gioca ancora" : "Riprova";
+    over.classList.remove("hide");
+    draw();
+  }
+  function turn(d){
+    if(!playing) return;
+    const map = { up:{x:0,y:-1}, down:{x:0,y:1}, left:{x:-1,y:0}, right:{x:1,y:0} };
+    const v = map[d];
+    if(!v || (v.x === -dir.x && v.y === -dir.y) || (v.x === dir.x && v.y === dir.y)) return;
+    next = v;
+  }
+
+  function resume(){
+    playing = true; paused = false;
+    document.body.classList.add("playing");
+    over.classList.add("hide");
+    clearInterval(timer); timer = setInterval(step, speed);
+  }
+  el("#gStart").onclick = ()=>{ paused ? resume() : start(); };
+  document.querySelectorAll(".dbtn").forEach(b=>{
+    b.addEventListener("click", ()=>turn(b.dataset.dir));
+  });
+  document.addEventListener("keydown", e=>{
+    if(activeTab !== "gioco") return;
+    const k = { ArrowUp:"up", ArrowDown:"down", ArrowLeft:"left", ArrowRight:"right",
+                w:"up", s:"down", a:"left", d:"right" }[e.key];
+    if(k){ e.preventDefault(); turn(k); }
+    if(e.key === " " && !playing){ e.preventDefault(); paused ? resume() : start(); }
+  });
+  let tx = 0, ty = 0;
+  cv.addEventListener("touchstart", e=>{
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive:true });
+  cv.addEventListener("touchmove", e=>{
+    if(!playing) return;
+    e.preventDefault();
+    const dx = e.touches[0].clientX - tx, dy = e.touches[0].clientY - ty;
+    if(Math.abs(dx) < 22 && Math.abs(dy) < 22) return;
+    turn(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up"));
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive:false });
+
+  window.pauseGame = ()=>{
+    if(playing){
+      clearInterval(timer); playing = false; paused = true;
+      document.body.classList.remove("playing");
+      over.classList.remove("hide");
+      el("#gTitle").textContent = "In pausa";
+      el("#gMsg").textContent = "Sei a " + score + (score === 1 ? " mela." : " mele.");
+      el("#gStart").textContent = "Riprendi";
+    }
+  };
+  reset();
+})();
 
 setTab("menu");
 paintCoperti();
