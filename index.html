@@ -50,9 +50,10 @@ h1 em{font-style:italic;color:var(--snout)}
 
 /* ---------- Schede ---------- */
 .deck{position:sticky;top:0;z-index:30;background:linear-gradient(var(--ink) 84%, rgba(22,16,12,0));padding:10px 0 0}
-.tabs{display:flex;align-items:center;gap:10px}
+.tabs{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
 .tabset{display:flex;gap:4px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:999px;padding:4px;flex:1;min-width:0}
-.tabbtn{flex:1;min-width:0;border:0;background:none;color:var(--cream-dim);border-radius:999px;padding:9px 6px;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s,color .18s}
+.tabbtn{flex:0 0 auto;min-width:0;border:0;background:none;color:var(--cream-dim);border-radius:999px;padding:9px 6px;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s,color .18s}
 .tabbtn:hover{color:var(--cream)}
 .tabbtn.on{background:var(--brace);color:#241007}
 .pigwrap{flex:none;width:52px;text-align:center;line-height:0}
@@ -160,11 +161,18 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .tab{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:0 var(--pad) calc(12px + env(safe-area-inset-bottom));pointer-events:none}
 .tab-in{max-width:820px;margin:0 auto;pointer-events:auto;background:var(--paper);color:var(--paper-ink);border-radius:12px;display:flex;align-items:center;gap:12px;padding:11px 11px 11px 17px;box-shadow:0 -2px 0 rgba(0,0,0,.25),0 16px 40px rgba(0,0,0,.5);transform:translateY(150%);transition:transform .3s cubic-bezier(.2,.8,.3,1)}
 .tab.up .tab-in{transform:translateY(0)}
-.tab-l{display:flex;gap:14px;min-width:0}
-.tsum{line-height:1.2;padding-left:14px;border-left:1px dashed var(--paper-line);min-width:0}
+.tab-l{min-width:0;flex:1}
+.tab-sums{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none}
+.tab-sums::-webkit-scrollbar{display:none}
+.tsum{line-height:1.2;padding-left:12px;border-left:1px dashed var(--paper-line);min-width:0;flex:0 0 auto}
 .tsum:first-child{padding-left:0;border-left:0}
+.tab-grand{display:none;font-size:10.5px;color:#7A6A58;font-weight:700;margin-top:3px}
+.tab-grand.show{display:block}
+.tab-grand::before{content:"in tutto "}
 .tk{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--snout-ink);font-weight:800;display:block}
-.tsum.dolci .tk{color:var(--brace-deep)}
+.tsum[data-b="ghiottone"] .tk{color:var(--brace-deep)}
+.tsum[data-b="bar"] .tk{color:var(--sip)}
+.tsum[data-b="porchetta"] .tk{color:var(--cotenna)}
 .tvrow{display:flex;align-items:baseline;gap:8px}
 .tv{font-family:var(--num);font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
 .tv.bump{animation:bump .3s ease}
@@ -192,12 +200,15 @@ section.course{margin:28px 0 0;scroll-margin-top:130px}
 .r-close{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:0;background:none;color:#7A6A58;font-size:22px;line-height:1;cursor:pointer}
 .r-close:hover{background:#EDE5D7;color:var(--paper-ink)}
 .r-body{padding-top:14px}
-.segs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#EDE5D7;padding:4px;border-radius:10px;margin-bottom:16px}
+.segs{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#EDE5D7;padding:4px;border-radius:10px;margin-bottom:16px}
 .seg{border:0;background:none;cursor:pointer;border-radius:7px;padding:9px 6px;font-family:var(--ui);color:#7A6A58;text-align:center;line-height:1.2}
 .seg .sk{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;display:block}
 .seg .sv{font-family:var(--num);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;display:block;margin-top:2px}
 .seg.on{background:var(--paper);color:var(--paper-ink);box-shadow:0 1px 3px rgba(0,0,0,.14)}
-.seg.on.dolci .sk{color:var(--brace-deep)}
+.seg.off{opacity:.42}
+.seg.on.ghiottone .sk{color:var(--brace-deep)}
+.seg.on.bar .sk{color:var(--sip-deep)}
+.seg.on.porchetta .sk{color:#8A6410}
 .r-desk{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--paper-ink);background:#EDE5D7;border-radius:4px;padding:6px 9px;margin:18px 0 8px}
 .foot{margin-top:18px;padding-top:14px;border-top:1px dashed var(--paper-line);display:flex;align-items:center;gap:10px;font-size:12px;color:#7A6A58}
 .foot .gt{font-family:var(--num);font-weight:700;color:var(--paper-ink);font-size:14px}
@@ -334,6 +345,8 @@ body.playing .tab{display:none}
       <div class="tabset" role="tablist">
         <button class="tabbtn on" role="tab" data-tab="menu">Menù</button>
         <button class="tabbtn" role="tab" data-tab="ghiottone">Dolci</button>
+        <button class="tabbtn" role="tab" data-tab="bar">Bar</button>
+        <button class="tabbtn" role="tab" data-tab="porchetta">Porchetta</button>
         <button class="tabbtn" role="tab" data-tab="musica">Musica</button>
         <button class="tabbtn" role="tab" data-tab="gioco">Gioco</button>
       </div>
@@ -382,7 +395,7 @@ body.playing .tab{display:none}
       <input id="q" type="search" placeholder="Cerca un piatto: porchetta, torta, gnocchi…" autocomplete="off" aria-label="Cerca un piatto">
       <button class="clear" id="qclear" aria-label="Cancella la ricerca">×</button>
     </div>
-    <div id="menuList"></div>
+    <div id="list-menu"></div>
     <div class="covers-bar">
       <svg class="cb-ico"><use href="#snout"/></svg>
       <div class="cb-l"><strong>Coperti</strong><small>0,50 € a persona</small></div>
@@ -401,6 +414,24 @@ body.playing .tab{display:none}
   </div>
 
   <!-- ---------- MUSICA ---------- -->
+  <!-- ---------- BAR ---------- -->
+  <div class="panel" id="p-bar" role="tabpanel">
+    <p class="lead"><b>Listino bar.</b> Il bar è una cassa a parte: quello che prendi qui si paga al banco delle bevande, non con il menù.</p>
+    <div id="list-bar"></div>
+    <div class="notes">
+      <p>Le birre dell'Eremo e i vini delle cantine Vetunna e Valle di Assisi sono produzioni della zona.</p>
+    </div>
+  </div>
+
+  <!-- ---------- PORCHETTA ---------- -->
+  <div class="panel" id="p-porchetta" role="tabpanel">
+    <p class="lead"><b>La porchetta da portare a casa.</b> Panini e taglio al chilo dal banco della porchetta, con la sua cassa.</p>
+    <div id="list-porchetta"></div>
+    <div class="notes">
+      <p>Per il taglio al chilo ogni unità vale un chilo: se ne vuoi mezzo, chiedi al banco e paghi la metà.</p>
+    </div>
+  </div>
+
   <div class="panel" id="p-musica" role="tabpanel">
     <p class="lead"><b>Musica sotto le stelle.</b> Undici sere di concerti e orchestre spettacolo, dal 20 al 30 agosto. Ingresso libero, si balla dopo cena.</p>
     <div class="stage" id="stage"></div>
@@ -418,7 +449,7 @@ body.playing .tab{display:none}
   <!-- ---------- GHIOTTONE ---------- -->
   <div class="panel" id="p-ghiottone" role="tabpanel">
     <p class="lead"><b>L'angolo del Ghiottone.</b> Il banco dei dolci: caffè, bomboloni, macedonie e le crêpes, che qui portano tutte un nome di donna. Segnale come i piatti: entrano nello stesso conto.</p>
-    <div id="ghiottoneList"></div>
+    <div id="list-ghiottone"></div>
     <div class="notes">
       <p>I prezzi sono quelli esposti al banco: in caso di differenza fa fede il listino della cassa.</p>
     </div>
@@ -507,8 +538,8 @@ body.playing .tab{display:none}
 <div class="tab" id="tab">
   <div class="tab-in">
     <div class="tab-l">
-      <div class="tsum"><span class="tk">Menù</span><span class="tvrow"><span class="tv" id="tMenu">0,00 €</span><span class="tn" id="nMenu">0 piatti</span></span></div>
-      <div class="tsum dolci"><span class="tk">Dolci</span><span class="tvrow"><span class="tv" id="tDolci">0,00 €</span><span class="tn" id="nDolci">0 dolci</span></span></div>
+      <div class="tab-sums" id="tabSums"></div>
+      <span class="tab-grand" id="tabGrand"></span>
     </div>
     <button class="go" id="open"><svg><use href="#receipt"/></svg> Vedi i conti</button>
   </div>
@@ -575,12 +606,50 @@ const SEZIONI = [
     { n:"Patate al forno", d:"", p:4.00 },
     { n:"Verdura cotta", d:"", p:4.00 }
   ]},
-  { id:"bevande", label:"Bevande", group:"menu", items:[
-    { n:"Acqua", d:"", p:2.00 },
-    { n:"Birra", d:"", p:5.00 },
-    { n:"Bibite in lattina e alla spina", d:"", p:3.00 },
-    { n:"Vino della casa Vetunna", d:"", p:8.00 },
-    { n:"Vino selezione Valle di Assisi", d:"", p:12.00 }
+  { id:"birreria", label:"Birreria", group:"bar", items:[
+    { n:"Peroni Chiara Classica", d:"", p:5.00 },
+    { n:"Peroni Rossa Gran Riserva", d:"", p:5.00 },
+    { n:"Birra dell'Eremo · Fiera", d:"American IPA ambrata, birrificio di Assisi", p:5.00, star:"bevi locale" },
+    { n:"Birra in bottiglia", d:"Tennent's, Radler o Corona", p:5.00 }
+  ]},
+
+  { id:"cantina", label:"Dalla cantina", group:"bar",
+    note:"Il vino sfuso si prende a bicchiere o in caraffa. Le bottiglie vengono da due cantine della zona.",
+    items:[
+    { n:"Bianco frizzante · bicchiere", d:"Vino sfuso", p:2.00 },
+    { n:"Bianco frizzante · 0,5 lt", d:"Vino sfuso", p:4.00 },
+    { n:"Bianco frizzante · 1 lt", d:"Vino sfuso", p:8.00 },
+    { n:"Vino rosso · 0,5 lt", d:"Vino sfuso", p:4.00 },
+    { n:"Vino rosso · 1 lt", d:"Vino sfuso", p:8.00 },
+    { n:"Pinot Grigio · bottiglia", d:"Cantina Vetunna, Bettona", p:8.00, star:"bevi locale" },
+    { n:"Sangiovese · bottiglia", d:"Cantina Vetunna, Bettona", p:8.00, star:"bevi locale" },
+    { n:"Grechetto di Assisi", d:"Cantina Valle di Assisi", p:12.00, star:"bevi locale" },
+    { n:"Recanto", d:"Merlot e Cabernet, Cantina Valle di Assisi", p:12.00, star:"bevi locale" }
+  ]},
+
+  { id:"aperitivi", label:"Aperitivi", group:"bar", items:[
+    { n:"Spritz", d:"Aperol o Campari", p:5.00 },
+    { n:"Crodino", d:"", p:2.00 }
+  ]},
+
+  { id:"bevande", label:"Bevande", group:"bar", items:[
+    { n:"Acqua 0,5 lt", d:"", p:1.00 },
+    { n:"Acqua 1 lt", d:"", p:2.00 },
+    { n:"Lattine", d:"", p:3.00 },
+    { n:"Acqua tonica · bicchiere", d:"Alla spina", p:3.00 },
+    { n:"Coca Cola · bicchiere", d:"Alla spina", p:3.00 },
+    { n:"Coca Cola · 1 lt", d:"Alla spina", p:8.00 },
+    { n:"Caffè", d:"", p:1.00 },
+    { n:"Caffè corretto", d:"", p:1.50 },
+    { n:"Ammazzacaffè", d:"", p:3.00 }
+  ]},
+
+  { id:"asporto", label:"Porchetta", group:"porchetta",
+    note:"Il banco della porchetta è a parte: si paga lì. Per il taglio al chilo segna quanti chili vuoi.",
+    items:[
+    { n:"Panino con porchetta", d:"", p:4.50 },
+    { n:"Panino vuoto", d:"", p:0.75 },
+    { n:"Porchetta al kg", d:"Prezzo al chilo", p:24.00, star:"al taglio" }
   ]},
 
   { id:"dolci", label:"Dolci e caffè", group:"ghiottone", items:[
@@ -644,11 +713,19 @@ const eur = v => v.toFixed(2).replace(".",",") + " €";
 const el = s => document.querySelector(s);
 const slow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const chipsEl = el("#chips");
-const CHIPS = { menu:[], musica:[], ghiottone:[], gioco:[] };
+const BILLS = [
+  { id:"menu",       label:"Menù",      cassa:"alla cassa del menù",      coperto:true },
+  { id:"ghiottone",  label:"Dolci",     cassa:"all'Angolo del Ghiottone" },
+  { id:"bar",        label:"Bar",       cassa:"al banco delle bevande" },
+  { id:"porchetta",  label:"Porchetta", cassa:"al banco della porchetta" }
+];
+const BILL = {}; BILLS.forEach(b=>BILL[b.id] = b);
+
+const CHIPS = { menu:[], musica:[], ghiottone:[], bar:[], porchetta:[], gioco:[] };
 
 /* ---------- liste ---------- */
 SEZIONI.forEach(c=>{
-  const host = c.group === "menu" ? el("#menuList") : el("#ghiottoneList");
+  const host = el("#list-" + c.group);
 
   const chip = document.createElement("button");
   chip.className = "chip" + (c.id === "bevande" ? " sip" : ""); chip.dataset.cat = c.id;
@@ -683,7 +760,7 @@ SEZIONI.forEach(c=>{
           '<span class="qty" aria-live="polite">0</span>' +
           '<button class="plus" aria-label="Aggiungi '+safe+'">+</button>' +
         '</div></div>';
-    row.querySelector(".plus").addEventListener("click", e=>{ change(it.key, 1); fly(e.currentTarget, c.group === "ghiottone" ? "#tDolci" : "#tMenu"); });
+    row.querySelector(".plus").addEventListener("click", e=>{ change(it.key, 1); fly(e.currentTarget, "#t-" + c.group); });
     row.querySelector(".minus").addEventListener("click", ()=>change(it.key,-1));
     list.appendChild(row);
   });
@@ -814,32 +891,43 @@ function lines(group){
   return out;
 }
 function totals(){
-  let mn = 0, ms = 0, dn = 0, ds = 0, food = 0;
+  const out = {}; let gran = 0, tutti = 0;
+  BILLS.forEach(b=>out[b.id] = { n:0, sub:0, cop:0, tot:0 });
   SEZIONI.forEach(c=>c.items.forEach(it=>{
     const q = qty[it.key]; if(!q) return;
-    if(c.group === "ghiottone"){ dn += q; ds += it.p*q; }
-    else { mn += q; ms += it.p*q; if(c.id !== "bevande") food += q; }
+    const b = out[c.group]; if(!b) return;
+    b.n += q; b.sub += it.p * q;
   }));
-  const cop = coperti * COPERTO;
-  return {
-    menu:{ n:mn, sub:ms, cop:cop, tot: ms + cop, food },
-    dolci:{ n:dn, tot:ds },
-    n: mn + dn, tot: ms + cop + ds
-  };
+  BILLS.forEach(b=>{
+    const o = out[b.id];
+    o.cop = b.coperto ? coperti * COPERTO : 0;
+    o.tot = o.sub + o.cop;
+    gran += o.tot; tutti += o.n;
+  });
+  out.n = tutti; out.tot = gran;
+  return out;
 }
+
 function bump(node, val){
   if(node.textContent === val) return;
   node.textContent = val;
   node.classList.remove("bump"); void node.offsetWidth; node.classList.add("bump");
 }
 function refresh(){
-  const t = totals();
-  bump(el("#tMenu"), eur(t.menu.tot));
-  bump(el("#tDolci"), eur(t.dolci.tot));
-  const mbits = [t.menu.n === 1 ? "1 piatto" : t.menu.n + " piatti"];
-  if(coperti) mbits.push(coperti === 1 ? "1 coperto" : coperti + " coperti");
-  el("#nMenu").textContent = mbits.join(" · ");
-  el("#nDolci").textContent = t.dolci.n === 1 ? "1 dolce" : t.dolci.n + " dolci";
+  const t = totals(), host = el("#tabSums");
+  const attivi = BILLS.filter(b=>t[b.id].n > 0 || (b.coperto && coperti > 0));
+  host.innerHTML = attivi.length
+    ? attivi.map(b=>{
+        const o = t[b.id];
+        const bits = [o.n + (b.id === "menu" ? (o.n === 1 ? " piatto" : " piatti") : (o.n === 1 ? " voce" : " voci"))];
+        if(b.coperto && coperti) bits.push(coperti + (coperti === 1 ? " coperto" : " coperti"));
+        return '<div class="tsum" data-b="'+b.id+'"><span class="tk">'+b.label+'</span>' +
+               '<span class="tvrow"><span class="tv" id="t-'+b.id+'">'+eur(o.tot)+'</span>' +
+               '<span class="tn">'+bits.join(" · ")+'</span></span></div>';
+      }).join("")
+    : '<div class="tsum"><span class="tk">Il tuo conto</span><span class="tvrow"><span class="tv">'+eur(0)+'</span></span></div>';
+  el("#tabGrand").textContent = attivi.length > 1 ? eur(t.tot) : "";
+  el("#tabGrand").classList.toggle("show", attivi.length > 1);
   el("#tab").classList.toggle("up", t.n > 0 || coperti > 0);
   SEZIONI.forEach(c=>{
     const n = c.items.reduce((s,it)=>s + qty[it.key], 0);
@@ -858,19 +946,19 @@ function drawReceipt(){
       '<p>Non hai ancora scelto niente.<br>Torna al menù e segna le porzioni.</p></div>';
     return;
   }
-  if(t.dolci.n === 0 && activeDesk === "dolci") activeDesk = "menu";
-  if(t.menu.n === 0 && coperti === 0 && activeDesk === "menu" && t.dolci.n > 0) activeDesk = "dolci";
+  const vivi = BILLS.filter(b=>t[b.id].n > 0 || (b.coperto && coperti > 0));
+  if(vivi.length && !vivi.some(b=>b.id === activeDesk)) activeDesk = vivi[0].id;
 
-  const d = activeDesk, dt = t[d];
-  let html =
-    '<div class="segs">' +
-      '<button class="seg' + (d === "menu" ? " on" : "") + '" data-d="menu"><span class="sk">Menù</span><span class="sv">'+eur(t.menu.tot)+'</span></button>' +
-      '<button class="seg dolci' + (d === "dolci" ? " on" : "") + '" data-d="dolci"><span class="sk">Dolci</span><span class="sv">'+eur(t.dolci.tot)+'</span></button>' +
-    '</div>';
+  const d = activeDesk, dt = t[d], meta = BILL[d];
+  let html = '<div class="segs">' + BILLS.map(b=>{
+    const o = t[b.id], vuoto = o.n === 0 && !(b.coperto && coperti > 0);
+    return '<button class="seg ' + b.id + (b.id === d ? " on" : "") + (vuoto ? " off" : "") + '" data-d="'+b.id+'">' +
+           '<span class="sk">'+b.label+'</span><span class="sv">'+eur(o.tot)+'</span></button>';
+  }).join("") + '</div>';
 
-  const groups = lines(d === "menu" ? "menu" : "ghiottone");
-  if(!groups.length && !(d === "menu" && coperti > 0)){
-    html += '<div class="empty"><p>Niente da questa parte del conto.</p></div>';
+  const groups = lines(d);
+  if(!groups.length && !(meta.coperto && coperti > 0)){
+    html += '<div class="empty"><p>Niente su questo conto.</p></div>';
   } else {
     groups.forEach(g=>{
       html += '<div class="r-cat">'+g.cat+'</div>';
@@ -879,7 +967,7 @@ function drawReceipt(){
                 '<span class="lead"></span><span class="p">'+eur(r.tot)+'</span></div>';
       });
     });
-    if(d === "menu"){
+    if(meta.coperto){
       html += '<div class="covers">' +
         '<div class="lab"><strong>Coperti</strong><small>0,50 € a persona</small></div>' +
         '<div class="st">' +
@@ -887,13 +975,13 @@ function drawReceipt(){
           '<span aria-live="polite">'+coperti+'</span>' +
           '<button id="cPlus" aria-label="Un coperto in più">+</button>' +
         '</div>' +
-        '<span class="p" style="font-family:var(--num)">'+eur(t.menu.cop)+'</span></div>';
+        '<span class="p" style="font-family:var(--num)">'+eur(dt.cop)+'</span></div>';
     }
   }
 
-  const sp = splitOf(dt.tot, persone);
+  const sp = splitOf(dt.tot, persone), gsp = splitOf(t.tot, persone);
   html +=
-    '<div class="r-total"><span class="k">Totale ' + (d === "menu" ? "menù" : "dolci") + '</span><span class="v">'+eur(dt.tot)+'</span></div>' +
+    '<div class="r-total"><span class="k">Totale ' + meta.label.toLowerCase() + '</span><span class="v">'+eur(dt.tot)+'</span></div>' +
     (dt.tot > 0 ?
       '<div class="split">' +
         '<div class="lab">Alla romana<small>Dividi tra gli amici</small></div>' +
@@ -910,25 +998,26 @@ function drawReceipt(){
         '</div>' +
       '</div>'
     : '') +
-    '<p class="r-note">' + (d === "menu"
-        ? t.menu.n + ' portate' + (coperti ? ' e ' + coperti + ' coperti' : '') + '. Mostra questo conto alla cassa del menù.'
-        : t.dolci.n + ' dolci. Mostra questo conto all\'Angolo del Ghiottone.') + '</p>' +
+    '<p class="r-note">Questo conto si paga ' + meta.cassa + '.' +
+      (vivi.length > 1 ? (vivi.length === 2 ? " C'è un altro conto da pagare altrove: lo trovi qui sopra."
+                                             : ' Ci sono altri ' + (vivi.length - 1) + ' conti da pagare altrove: li trovi qui sopra.') : '') +
+    '</p>' +
     '<div class="acts">' +
-      '<button class="primary" id="aCopy"><svg><use href="#copy"/></svg> Copia il conto ' + (d === "menu" ? "menù" : "dolci") + '</button>' +
+      '<button class="primary" id="aCopy"><svg><use href="#copy"/></svg> Copia il conto ' + meta.label.toLowerCase() + '</button>' +
       '<a id="aWa" target="_blank" rel="noopener"><svg><use href="#wa"/></svg> WhatsApp</a>' +
       '<button id="aShare"><svg><use href="#share"/></svg> Condividi</button>' +
     '</div>' +
-    '<div class="foot"><span>Totale complessivo' +
-      (splitOf(t.tot, persone) ? ' · ' + eur(splitOf(t.tot, persone).each) + ' a testa' : '') +
-      '</span><span class="gt">'+eur(t.tot)+'</span>' +
-      '<button class="lnk" id="aBoth">Copia tutti e due</button></div>' +
+    (vivi.length > 1 ?
+      '<div class="foot"><span>Totale complessivo' + (gsp ? ' · ' + eur(gsp.each) + ' a testa' : '') + '</span>' +
+      '<span class="gt">'+eur(t.tot)+'</span>' +
+      '<button class="lnk" id="aAll">Copia tutti</button></div>' : '') +
     '<button class="tavolo" id="aLink"><svg><use href="#link"/></svg> Manda l\'ordine al tavolo</button>' +
     '<button class="wipe" id="aClear">Ricomincia da capo</button>';
 
   body.innerHTML = html;
 
-  body.querySelectorAll(".seg").forEach(s=>{
-    s.onclick = ()=>{ activeDesk = s.dataset.d; drawReceipt(); };
+  body.querySelectorAll(".seg").forEach(x=>{
+    x.onclick = ()=>{ activeDesk = x.dataset.d; drawReceipt(); };
   });
   const cm = el("#cMinus"), cp = el("#cPlus");
   if(cm) cm.onclick = ()=>setCoperti(coperti - 1);
@@ -937,52 +1026,58 @@ function drawReceipt(){
   if(pm) pm.onclick = ()=>setPersone(persone - 1);
   if(pp) pp.onclick = ()=>setPersone(persone + 1);
 
-  el("#aCopy").onclick = ()=>copyText(orderText(d), "Conto " + (d === "menu" ? "menù" : "dolci") + " copiato");
-  el("#aBoth").onclick = ()=>copyText(bothText(), "Copiati tutti e due i conti");
+  el("#aCopy").onclick = ()=>copyText(orderText(d), "Conto " + meta.label.toLowerCase() + " copiato");
+  const all = el("#aAll");
+  if(all) all.onclick = ()=>copyText(allText(), "Copiati tutti i conti");
+  el("#aClear").onclick = clearAll;
+  el("#aWa").href = "https://wa.me/?text=" + encodeURIComponent(orderText(d));
   el("#aLink").onclick = ()=>{
     const url = shareURL();
     if(navigator.share){ navigator.share({ title:EVENTO, text:"Il nostro ordine alla sagra", url }).catch(()=>{}); }
     else copyText(url, "Link copiato: mandalo a chi è al tavolo");
   };
-  el("#aClear").onclick = clearAll;
-  el("#aWa").href = "https://wa.me/?text=" + encodeURIComponent(orderText(d));
   const sh = el("#aShare");
   if(navigator.share){
-    sh.onclick = ()=>navigator.share({ title:EVENTO + " · " + (d === "menu" ? "Menù" : "Dolci"), text:orderText(d) }).catch(()=>{});
+    sh.onclick = ()=>navigator.share({ title:EVENTO + " · " + meta.label, text:orderText(d) }).catch(()=>{});
   } else {
     sh.style.display = "none";
     el("#aWa").style.gridColumn = "1 / -1";
   }
 }
 
-/* ---------- testo ---------- */
 function stamp(){
   const now = new Date();
   return now.toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit",year:"numeric"}) +
          " alle " + now.toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"});
 }
+const EMO = { menu:"🐷", ghiottone:"🍫", bar:"🍺", porchetta:"🥪" };
 function block(d){
-  const t = totals();
-  let s = (d === "menu" ? "🐷 CONTO MENÙ" : "🍫 CONTO DOLCI · L'ANGOLO DEL GHIOTTONE") + "\n";
-  lines(d === "menu" ? "menu" : "ghiottone").forEach(g=>{
+  const t = totals(), meta = BILL[d];
+  let s = EMO[d] + " CONTO " + meta.label.toUpperCase() + "\n";
+  lines(d).forEach(g=>{
     s += "\n" + g.cat.toUpperCase() + "\n";
     g.rows.forEach(r=>{ s += "• " + r.q + "× " + r.n + " · " + eur(r.tot) + "\n"; });
   });
-  if(d === "menu" && coperti > 0) s += "\nCoperti: " + coperti + " × " + eur(COPERTO) + " · " + eur(t.menu.cop) + "\n";
-  s += "\nTOTALE " + (d === "menu" ? "MENÙ" : "DOLCI") + ": " + eur(t[d].tot);
+  if(meta.coperto && coperti > 0) s += "\nCoperti: " + coperti + " × " + eur(COPERTO) + " · " + eur(t[d].cop) + "\n";
+  s += "\nTOTALE " + meta.label.toUpperCase() + ": " + eur(t[d].tot);
   const sp = splitOf(t[d].tot, persone);
   if(sp) s += "\nAlla romana in " + persone + ": " + eur(sp.each) + " a testa" +
               (sp.resto ? " (" + sp.resto + " pagano " + eur(sp.up) + ")" : "");
+  s += "\nSi paga " + meta.cassa + ".";
   return s;
 }
 function head(){ return "🐷 " + EVENTO.toUpperCase() + "\n" + EDIZIONE + "\nOrdine del " + stamp() + "\n"; }
 function orderText(d){ return head() + "\n" + block(d) + "\n\n" + SITO + "\nDove siamo: " + MAPS; }
-function bothText(){
+function allText(){
   const t = totals();
-  return head() + "\n" + block("menu") + "\n\n- - - - - - - - - - - - - - - -\n\n" + block("dolci") +
-         "\n\n- - - - - - - - - - - - - - - -\nTOTALE COMPLESSIVO: " + eur(t.tot) +
-         (splitOf(t.tot, persone) ? "\nAlla romana in " + persone + ": " + eur(splitOf(t.tot, persone).each) + " a testa" : "") +
-         "\n\n" + SITO + "\nDove siamo: " + MAPS;
+  const vivi = BILLS.filter(b=>t[b.id].n > 0 || (b.coperto && coperti > 0));
+  let s = head() + "\n" + vivi.map(b=>block(b.id)).join("\n\n- - - - - - - - - - - - - - - -\n\n");
+  if(vivi.length > 1){
+    s += "\n\n- - - - - - - - - - - - - - - -\nTOTALE COMPLESSIVO: " + eur(t.tot);
+    const g = splitOf(t.tot, persone);
+    if(g) s += "\nAlla romana in " + persone + ": " + eur(g.each) + " a testa";
+  }
+  return s + "\n\n" + SITO + "\nDove siamo: " + MAPS;
 }
 function copyText(txt, msg){
   const done = ()=>toast(msg);
@@ -1016,7 +1111,9 @@ function clearAll(){
 /* ---------- grifo che vola ---------- */
 function fly(btn, targetSel){
   if(slow) return;
-  const from = btn.getBoundingClientRect(), target = el(targetSel).getBoundingClientRect();
+  const dest = el(targetSel) || el("#tabSums");
+  if(!dest) return;
+  const from = btn.getBoundingClientRect(), target = dest.getBoundingClientRect();
   const s = document.createElementNS("http://www.w3.org/2000/svg","svg");
   s.setAttribute("class","fly");
   s.setAttribute("viewBox","0 0 60 46");
@@ -1076,10 +1173,10 @@ window.addEventListener("resize", onScroll);
 const sheet = el("#sheet");
 el("#open").onclick = ()=>{
   const t = totals();
-  if(coperti === 0 && (t.menu.food > 0 || t.dolci.n > 0) && activeTab !== "menu"){
+  if(coperti === 0 && t.menu.n > 0 && activeTab !== "menu"){
     setTab("menu");
   }
-  if(coperti === 0 && (t.menu.food > 0 || t.dolci.n > 0)){
+  if(coperti === 0 && t.menu.n > 0){
     const cb = el(".covers-bar");
     cb.scrollIntoView({ behavior: slow ? "auto" : "smooth", block:"center" });
     cb.classList.remove("nudge"); void cb.offsetWidth; cb.classList.add("nudge");
@@ -1098,7 +1195,7 @@ const qEl = el("#q"), qClear = el("#qclear");
 qEl.addEventListener("input", ()=>{
   const v = qEl.value.trim().toLowerCase();
   qClear.style.display = v ? "block" : "none";
-  el("#menuList").querySelectorAll(".course").forEach(sec=>{
+  document.querySelectorAll("#list-menu .course").forEach(sec=>{
     let hits = 0;
     sec.querySelectorAll(".dish").forEach(d=>{
       const ok = !v || d.dataset.find.includes(v);
@@ -1107,13 +1204,13 @@ qEl.addEventListener("input", ()=>{
     });
     sec.style.display = hits ? "" : "none";
   });
-  const nothing = !el("#menuList").querySelector('.course:not([style*="display: none"])');
+  const nothing = !document.querySelector('#list-menu .course:not([style*="display: none"])');
   let msg = el("#noHit");
   if(nothing && !msg){
     msg = document.createElement("p");
     msg.id = "noHit"; msg.className = "no-hit";
     msg.textContent = "Nessun piatto con questo nome. Prova con “porchetta”, “torta”, “polenta”.";
-    el("#menuList").appendChild(msg);
+    el("#list-menu").appendChild(msg);
   } else if(!nothing && msg) msg.remove();
   onScroll();
 });
