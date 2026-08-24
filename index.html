@@ -52,6 +52,9 @@ header.top{padding:clamp(28px,6vw,48px) 0 clamp(14px,3vw,20px);text-align:center
 .mark{width:46px;height:35px;display:block;margin:0 auto 10px;color:var(--snout-text)}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(36px,10vw,64px);line-height:.98;margin:0;letter-spacing:-.015em}
 h1 em{font-style:italic;color:var(--snout-text)}
+.gname{display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 10px}
+.gname-ico{width:36px;height:33px;flex:none;color:var(--snout-text)}
+.gname h2{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(28px,8vw,40px);color:var(--snout-text);margin:0;letter-spacing:-.01em}
 .place{margin:16px 0 0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim)}
 .links{display:flex;gap:5px;justify-content:center;align-items:center;flex-wrap:wrap;margin:18px 0 0}
 .ic{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border:2px solid var(--hair);border-radius:50%;background:var(--ink-2);color:var(--cream);padding:0;cursor:pointer;text-decoration:none;transition:border-color .18s,background .18s,transform .18s,color .18s}
@@ -140,6 +143,7 @@ nav.chips.hide{display:none}
 .panel{display:none}
 .panel.on{display:block}
 .lead{margin:6px 0 0;color:var(--cream-dim);font-size:14.5px;line-height:1.55;max-width:56ch}
+#p-gioco .lead{text-align:center;max-width:42ch;margin-left:auto;margin-right:auto}
 .lead b{color:var(--cream);font-weight:600}
 
 /* ---------- Ricerca ---------- */
@@ -554,7 +558,8 @@ body.playing .tab{display:none}
 
   <!-- ---------- GIOCO ---------- -->
   <div class="panel" id="p-gioco" role="tabpanel">
-    <p class="lead"><b>PorcoSnake.</b> Ogni mela allunga la fila e arrostisce un pezzo di porchetta. Riempila tutta e hai vinto.</p>
+    <div class="gname"><svg class="gname-ico"><use href="#pad"/></svg><h2>PorcoSnake</h2></div>
+    <p class="lead">Ogni mela allunga la fila e arrostisce un pezzo di porchetta. Riempila tutta e hai vinto.</p>
 
     <div class="porkbar">
       <div class="pb-lab"><span id="gScore">0</span> mele su <span id="gGoal">20</span> · <span id="gPct">0%</span> di porchetta</div>
