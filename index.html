@@ -6,7 +6,15 @@
 <title>Sagra della Porchetta di Costano · 51ª edizione · 20-30 agosto 2026</title>
 <meta name="theme-color" id="metaTheme" content="#16100C">
 <meta name="description" content="Menù, programma musicale e dolci della Sagra della Porchetta di Costano, 51ª edizione. Segna le quantità, calcola il conto e porta il riepilogo alla cassa.">
-<meta name="theme-color" content="#16100C">
+
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="./icon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sagra Costano">
 <style>
 /* ============================================================
    SAGRA DELLA PORCHETTA DI COSTANO · 51ª edizione · 2026
@@ -1603,6 +1611,13 @@ setTab("menu");
 paintCoperti();
 refresh();
 onScroll();
+
+/* ---------- installazione come app (PWA) ---------- */
+if("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  });
+}
 </script>
 
 <footer class="credit">Idea di Ulisse Mele</footer>
